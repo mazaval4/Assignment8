@@ -33,6 +33,7 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
     static var nameClicked = ""
     var appDel:AppDelegate?
     var mContext:NSManagedObjectContext?
+    var placeName = ""
     
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var name: UITextField!
@@ -53,26 +54,24 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
             "Place Removed!", preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         self.present(alertController, animated: true, completion: nil)
-        
+        self.delete()
     }
-    
-    @IBAction func saveButton(_ sender: Any) {
-        let alertController = UIAlertController(title: "Places", message:
-            "Place Saved!", preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
-        self.present(alertController, animated: true, completion: nil)
-        
-        
-        
-        
-    }
+//    
+//    @IBAction func saveButton(_ sender: Any) {
+//        let alertController = UIAlertController(title: "Places", message:
+//            "Place Saved!", preferredStyle: UIAlertControllerStyle.alert)
+//        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+//        self.present(alertController, animated: true, completion: nil)
+//        
+//        
+//    }
     
     
     override func viewDidLoad() {
+        var tempe = ""
         super.viewDidLoad()
         appDel = (UIApplication.shared.delegate as! AppDelegate)
         mContext = appDel!.managedObjectContext
-       
             // instead of doing a query, could search the students array for the managed object.
             let selectRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Places")
             selectRequest.predicate = NSPredicate(format: "name == %@",ViewController.nameClicked)
@@ -81,24 +80,33 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
                 if results.count > 0 {
                     desc.text = (results[0] as AnyObject).value(forKey: "descrip") as? String
                     name.text = (results[0] as AnyObject).value(forKey: "name") as? String
+                    placeName = (results[0] as AnyObject).value(forKey: "name") as! String
                     addressTitle.text = (results[0] as AnyObject).value(forKey: "address_title") as? String
                     addressStreet.text = (results[0] as AnyObject).value(forKey: "address_street") as? String
                     image.text = (results[0] as AnyObject).value(forKey: "image") as? String
                     elevation.text = "\(((results[0] as AnyObject).value(forKey: "elevation") as? Double)!)"
                     latitude.text = "\(((results[0] as AnyObject).value(forKey: "latitude") as? Double)!)"
                     longitude.text = "\(((results[0] as AnyObject).value(forKey: "longitude") as? Double)!)"
+                    tempe = (results[0] as AnyObject).value(forKey: "category") as! String
                 }
             } catch let error as NSError{
                 NSLog("Error selecting student \(name). Error: \(error)")
             }
-        
+        if(tempe == "School"){
+            myPicker.selectRow(0, inComponent: 0, animated: true)
+        }
+        else if(tempe == "Travel"){
+            myPicker.selectRow(1, inComponent: 0, animated: true)
+        }
+        else{
+            myPicker.selectRow(2, inComponent: 0, animated: true)
+        }
         
         elevation.keyboardType = UIKeyboardType.numberPad;
         latitude.keyboardType = UIKeyboardType.numberPad;
         longitude.keyboardType = UIKeyboardType.numberPad;
-        
-        
     }
+    
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
@@ -113,8 +121,19 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
         return 1;
     }
     
-    
-    
+    func delete(){
+        let selectRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Places")
+        selectRequest.predicate = NSPredicate(format: "name == %@",placeName)
+        do{
+            let results = try mContext!.fetch(selectRequest)
+            if results.count > 0 {
+                mContext!.delete(results[0] as! NSManagedObject)
+                try mContext?.save()
+            }
+        } catch let error as NSError{
+            NSLog("error deleting place \(error)")
+        }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -31,7 +31,7 @@ import Foundation
 class AddPlace: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource{
 
     var array =  ["School","Travel","Hike"]
-//    var placeLibary = 
+
     
     @IBOutlet weak var descTextField: UITextField!
     @IBOutlet weak var addressTitleTextField: UITextField!
@@ -45,7 +45,7 @@ class AddPlace: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource{
     
     @IBOutlet weak var picker1: UIPickerView!
     
-    
+    var categorySelection = 0
     var appDel:AppDelegate?
     var mContext:NSManagedObjectContext?
     
@@ -70,7 +70,7 @@ class AddPlace: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource{
         let longitude:Double = Double(longitudeTextField.text!)!
         let image:String = imageTextField.text!
         let name:String = nameTextField.text!
-        let category:String = array[0]
+        let category:String = array[categorySelection]
         if mContext != nil {
             print("Contains a value!")
         } else {
@@ -96,7 +96,7 @@ class AddPlace: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource{
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        placeLibary.setCategorySelected(cat: array[row]);
+        categorySelection = row;
         return array[row]
     }
     
