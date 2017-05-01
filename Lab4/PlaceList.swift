@@ -23,7 +23,7 @@
  */
 import UIKit
 import CoreData
-
+x
 
 class PlaceList: UITableViewController{
     

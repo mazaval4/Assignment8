@@ -16,7 +16,6 @@
 		0B4869231E66E85900D69B19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B4869211E66E85900D69B19 /* LaunchScreen.storyboard */; };
 		0B48692E1E66E85900D69B19 /* Lab4Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B48692D1E66E85900D69B19 /* Lab4Tests.swift */; };
 		0B4869391E66E85900D69B19 /* Lab4UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4869381E66E85900D69B19 /* Lab4UITests.swift */; };
-		0B4869471E66E9E100D69B19 /* PlaceDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4869461E66E9E100D69B19 /* PlaceDescription.swift */; };
 		0B7B60191E686D660094DA28 /* PlaceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7B60181E686D660094DA28 /* PlaceList.swift */; };
 		0BAB9F161EB6BA190014F240 /* PlacesData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0BAB9F141EB6BA190014F240 /* PlacesData.xcdatamodeld */; };
 /* End PBXBuildFile section */
@@ -54,7 +53,6 @@
 		0B4869341E66E85900D69B19 /* Lab4UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Lab4UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B4869381E66E85900D69B19 /* Lab4UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lab4UITests.swift; sourceTree = "<group>"; };
 		0B48693A1E66E85900D69B19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0B4869461E66E9E100D69B19 /* PlaceDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceDescription.swift; sourceTree = "<group>"; };
 		0B7B60181E686D660094DA28 /* PlaceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceList.swift; sourceTree = "<group>"; };
 		0BAB9F151EB6BA190014F240 /* PlacesData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlacesData.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,7 +110,6 @@
 				0B0C16571E696C72006BFC33 /* Calculations.swift */,
 				0B7B60181E686D660094DA28 /* PlaceList.swift */,
 				0B48691A1E66E85900D69B19 /* ViewController.swift */,
-				0B4869461E66E9E100D69B19 /* PlaceDescription.swift */,
 				0B48691C1E66E85900D69B19 /* Main.storyboard */,
 				0B48691F1E66E85900D69B19 /* Assets.xcassets */,
 				0B4869211E66E85900D69B19 /* LaunchScreen.storyboard */,
@@ -278,7 +275,6 @@
 				0BAB9F161EB6BA190014F240 /* PlacesData.xcdatamodeld in Sources */,
 				0B0C16561E696052006BFC33 /* AddPlace.swift in Sources */,
 				0B7B60191E686D660094DA28 /* PlaceList.swift in Sources */,
-				0B4869471E66E9E100D69B19 /* PlaceDescription.swift in Sources */,
 				0B4869191E66E85900D69B19 /* AppDelegate.swift in Sources */,
 				0B0C16581E696C72006BFC33 /* Calculations.swift in Sources */,
 			);

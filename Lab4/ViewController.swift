@@ -34,7 +34,7 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
     var appDel:AppDelegate?
     var mContext:NSManagedObjectContext?
     var placeName = ""
-    
+    var categorySelection = 0
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var desc: UITextField!
@@ -56,15 +56,17 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
         self.present(alertController, animated: true, completion: nil)
         self.delete()
     }
-//    
-//    @IBAction func saveButton(_ sender: Any) {
-//        let alertController = UIAlertController(title: "Places", message:
-//            "Place Saved!", preferredStyle: UIAlertControllerStyle.alert)
-//        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
-//        self.present(alertController, animated: true, completion: nil)
-//        
-//        
-//    }
+    
+    
+    @IBAction func saveButton(_ sender: Any) {
+        let alertController = UIAlertController(title: "Places", message:
+            "Place Saved!", preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+        self.delete()
+        self.add()
+        
+    }
     
     
     override func viewDidLoad() {
@@ -109,7 +111,7 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
     
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
+        categorySelection = row;
         return array[row];
     }
     
@@ -133,6 +135,38 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
         } catch let error as NSError{
             NSLog("error deleting place \(error)")
         }
+    }
+    func add() {
+        
+        let addressStreetVar:String = addressStreet.text!
+        let addressTitleVar:String = addressTitle.text!
+        let descVar:String = desc.text!
+        let elevationVar:Double = Double(elevation.text!)!
+        let latitudeVar:Double = Double(latitude.text!)!
+        let longitudeVar:Double = Double(longitude.text!)!
+        let imageVar:String = image.text!
+        let nameVar:String = name.text!
+        let categoryVar:String = array[categorySelection]
+        
+        let entity = NSEntityDescription.entity(forEntityName: "Places", in: mContext!)
+        let aStud = NSManagedObject(entity: entity!, insertInto: mContext)
+        
+        aStud.setValue(nameVar, forKey:"name")
+        aStud.setValue(addressStreetVar, forKey:"address_street")
+        aStud.setValue(addressTitleVar, forKey:"address_title")
+        aStud.setValue(categoryVar, forKey:"category")
+        aStud.setValue(descVar, forKey:"descrip")
+        aStud.setValue(elevationVar, forKey:"elevation")
+        aStud.setValue(imageVar, forKey:"image")
+        aStud.setValue(latitudeVar, forKey:"latitude")
+        aStud.setValue(longitudeVar, forKey:"longitude")
+        
+        do{
+            try mContext!.save()
+        } catch let error as NSError{
+            NSLog("Error adding PLACE. Error: \(error)")
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
